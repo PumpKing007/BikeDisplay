@@ -20,58 +20,23 @@ OilTemperatureSensorMenu::OilTemperatureSensorMenu(Display *d, OilTemperatureSen
 
 
 void OilTemperatureSensorMenu::draw() {
-	// measure 10 times and calculate the average
-	long reading = 0;
-	for (byte i = 0; i < 100; i++) {
-		reading += sensor->readTemp();
-	}
-	reading = (long)(reading / 100);
-
-	float voltageR1 = (5.0 / 1023.0) * reading;
-	float resistance = 1000 * (voltageR1 / (5.0 - voltageR1));
-
-	float tr = 423.15;
-	float b = 3740.5;
-	float rr = 24.0;
-	float rt = resistance;
-
-
-	float a = 0.11; //(tr/b);
-	float bb = rr / rt;
-	float logg = log(bb);
-
-	float temp = tr / ( 1.0 - a * logg );
-	float tempC = temp - 273.15;
-
-//	Serial.print("a: ");
-//	Serial.print(a);
-//	Serial.print(", b: ");
-//	Serial.print(bb);
-//	Serial.print(", logg: ");
-//	Serial.print(logg);
-//	Serial.print(", temp: ");
-//	Serial.print(temp);
-//	Serial.print("\n");
-
-
-	//display->drawTemperature();
+	int temp = sensor->readTemp();
 
 	display->clearDisplay();
 	display->setTextColor(SSD1306_WHITE);
 	display->drawBitmap(0, 8, bitmap_oil_temp, 21, 16, 1);
-	display->setTextSize(1); //TODO 3
+	display->setTextSize(3);
 	display->setCursor(26, 8);
-	display->print(resistance);
 
-	display->setCursor(26, 25);
+	if( temp < 100 ) {
+		display->print(" ");
+	}
+	if( temp < 10 ) {
+			display->print(" ");
+		}
 	display->print(temp);
-
-	display->setCursor(80, 25);
-	display->print(tempC);
-
-//	display->print(sensor->readTemp());
-//	display->print((char) 247);
-//	display->print("C   ");
+	display->print((char) 247);
+	display->print("C   ");
 
 	display->display();
 }

@@ -15,7 +15,7 @@ class OilTemperatureSensor {
 public:
 	OilTemperatureSensor();
 
-	uint16_t readTemp();
+	int readTemp();
 
 
 };

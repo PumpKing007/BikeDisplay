@@ -84,7 +84,7 @@ void setup() {
 			; // Don't proceed, loop forever
 	}
 
-	display.drawTest();
+	display.drawSplashScreen();
 
 	delay(1000);
 
@@ -93,9 +93,6 @@ void setup() {
 
 
 	// ----------------
-//	MenuItem temp = Temp(&display);
-//	MenuItem clk = Clock(&display);
-
 	MenuItem* splashScreen = new SplashScreenMenu(&display);
 
 	MenuItem* oilTemperatureMenu = new OilTemperatureSensorMenu(&display, new OilTemperatureSensor);
@@ -118,25 +115,25 @@ void setup() {
 
 	for (;;) {
 		// toggle led
-			PINB = _BV(PINB5);
+		PINB = _BV(PINB5);
 
-			currentButtonState = buttonController.getButtonState();
-
-
-
-			if( currentButtonState==STATE_HIGH ) {
-				currentMenuItem = currentMenuItem->shortButtonPress();
-				Serial.print("shortPress");
-
-			} else if ( currentButtonState==STATE_LONG_HIGH ) {
-				currentMenuItem = currentMenuItem->longButtonPress();
-				Serial.print("longPress");
-			}
-
-			currentMenuItem-> draw();
+		currentButtonState = buttonController.getButtonState();
 
 
-			delay(100);
+
+		if( currentButtonState==STATE_HIGH ) {
+			currentMenuItem = currentMenuItem->shortButtonPress();
+			Serial.print("shortPress");
+
+		} else if ( currentButtonState==STATE_LONG_HIGH ) {
+			currentMenuItem = currentMenuItem->longButtonPress();
+			Serial.print("longPress");
+		}
+
+		currentMenuItem-> draw();
+
+
+		delay(100);
 	}
 }
 
