@@ -50,3 +50,7 @@ MenuItem* OilTemperatureSensorMenu::longButtonPress() {
 	return this;
 }
 
+
+displayMode OilTemperatureSensorMenu::getId() {
+	return OIL_TEMP;
+}

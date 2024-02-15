@@ -32,6 +32,10 @@ public:
 	MenuItem* longButtonPress(){
 		return this;
 	}
+
+	displayMode getId() {
+		return SPLASH_SCREEN;
+	}
 };
 
 #endif /* SRC_MENUITEMS_SPLASHSCREENMENU_H_ */

@@ -19,6 +19,7 @@
  **************************************************************************/
 
 #include <Arduino.h>
+#include <EEPROM.h>
 #include "src/Display.h"
 #include "src/Control.h"
 
@@ -30,8 +31,10 @@
 #include <TimeLib.h>
 
 Display display;
-
 Control buttonController;
+
+displayMode displayModeEeprom;
+
 
 // only 2 or 3 is possible, since these are the only dedicated isr ports without vector
 #define buttonPin 2
@@ -47,6 +50,8 @@ void buttonPressedISR() {
 void setup() {
 
 	// init
+	displayModeEeprom = EEPROM.read(0);
+
 
 	// set PB5 (led) as output
 	DDRB |= _BV(DDB5);
@@ -79,18 +84,29 @@ void setup() {
 
 	MenuItem* oilTemperatureMenu = new OilTemperatureSensorMenu(&display, &oilTempSensor);
 
-	MenuItem* clock = new ClockMenu(&display, new Clock());
+	MenuItem* clockMenu = new ClockMenu(&display, new Clock());
 
 	splashScreen->setNextMenuItem(oilTemperatureMenu);
 
-	oilTemperatureMenu->setNextMenuItem(clock);
+	oilTemperatureMenu->setNextMenuItem(clockMenu);
 
-	clock->setNextMenuItem(splashScreen);
+	clockMenu->setNextMenuItem(splashScreen);
 
 
 	MenuItem* currentMenuItem = splashScreen;
-
-
+	switch( displayModeEeprom ) {
+	case SPLASH_SCREEN:
+		currentMenuItem = splashScreen;
+		break;
+	case OIL_TEMP:
+		currentMenuItem = oilTemperatureMenu;
+		break;
+	case CLOCK:
+		currentMenuItem = clockMenu;
+		break;
+	default:
+		break;
+	}
 
 
 	ButtonState currentButtonState;
@@ -100,7 +116,6 @@ void setup() {
 		PINB = _BV(PINB5);
 
 		currentButtonState = buttonController.getButtonState();
-
 
 
 		if( currentButtonState==STATE_HIGH ) {
@@ -115,6 +130,7 @@ void setup() {
 
 		oilTempSensor.readAdc();
 		currentMenuItem-> draw();
+		EEPROM.write(0, currentMenuItem->getId());
 
 
 		delay(100);

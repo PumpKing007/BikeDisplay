@@ -23,6 +23,8 @@ public:
 	MenuItem* shortButtonPress();
 
 	MenuItem* longButtonPress();
+
+	displayMode getId();
 };
 
 #endif /* SRC_MENUITEMS_OILTEMPERATURESENSORMENU_H_ */

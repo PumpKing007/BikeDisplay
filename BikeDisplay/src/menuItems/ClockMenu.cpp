@@ -108,3 +108,8 @@ MenuItem* ClockMenu::longButtonPress() {
 
 	return this;
 }
+
+
+displayMode ClockMenu::getId() {
+		return CLOCK;
+	}

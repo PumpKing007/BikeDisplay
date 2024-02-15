@@ -10,6 +10,11 @@
 
 #include "../Display.h"
 
+enum displayMode {
+	SPLASH_SCREEN = 0,
+	OIL_TEMP = 1, CLOCK = 2
+};
+
 // command interface
 class MenuItem {
 protected:
@@ -30,6 +35,8 @@ public:
 	virtual MenuItem* shortButtonPress();
 
 	virtual MenuItem* longButtonPress();
+
+	virtual displayMode getId();
 };
 
 
