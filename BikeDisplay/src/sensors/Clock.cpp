@@ -10,10 +10,11 @@
 #include "RTClib.h"
 
 RTC_DS3231  rtc;
+bool rtcActive = false;
 
 time_t requestSync()
 {
-	if( !rtc.lostPower() ) {
+	if( rtcActive && !rtc.lostPower() ) {
 		DateTime now = rtc.now();
 		return now.unixtime(); // the time will be sent later in response to serial mesg
 	} else {
@@ -22,15 +23,21 @@ time_t requestSync()
 }
 
 Clock::Clock() {
-	if( !rtc.begin() ) {
-		// TODO error handling
-	}
-	if( rtc.lostPower() ) {
-		rtc.adjust(DateTime(2022, 12, 13, 0, 0, 0));
-	}
 	setTime(0);
-	setSyncProvider( requestSync );
-	setSyncInterval( 60 );
+
+	if (!rtc.begin()) {
+		rtcActive = false;
+		// TODO error handling
+	} else {
+		rtcActive = true;
+		if (rtc.lostPower()) {
+			rtc.adjust(DateTime(2022, 12, 13, 0, 0, 0));
+		}
+
+		setSyncProvider(requestSync);
+		setSyncInterval(60);
+	}
+
 }
 
 Clock::~Clock() {
@@ -38,7 +45,10 @@ Clock::~Clock() {
 
 void Clock::setClock(int hr,int min,int sec) {
 	setTime(hr, min, sec, 1, 1, 0);
-	rtc.adjust(DateTime(2022, 12, 13, hr, min, sec));
+
+	if( rtcActive ) {
+		rtc.adjust(DateTime(2022, 12, 13, hr, min, sec));
+	}
 }
 int Clock::getSeconds() {
 	return second();

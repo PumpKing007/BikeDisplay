@@ -17,6 +17,8 @@ public:
 
 	int readTemp();
 
+	void readAdc();
+
 
 };
 

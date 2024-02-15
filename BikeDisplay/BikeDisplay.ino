@@ -92,10 +92,11 @@ void setup() {
 	PORTB &= ~_BV(PORTB5);
 
 
+	OilTemperatureSensor oilTempSensor;
 	// ----------------
 	MenuItem* splashScreen = new SplashScreenMenu(&display);
 
-	MenuItem* oilTemperatureMenu = new OilTemperatureSensorMenu(&display, new OilTemperatureSensor);
+	MenuItem* oilTemperatureMenu = new OilTemperatureSensorMenu(&display, &oilTempSensor);
 
 	MenuItem* clock = new ClockMenu(&display, new Clock());
 
@@ -130,6 +131,8 @@ void setup() {
 			Serial.print("longPress");
 		}
 
+
+		oilTempSensor.readAdc();
 		currentMenuItem-> draw();
 
 
