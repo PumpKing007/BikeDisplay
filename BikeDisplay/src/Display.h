@@ -34,11 +34,9 @@ public:
 
 	void drawSplashScreen();
 
-	void drawTemperature();
+	void drawStarupScreen();
 
-	void drawClock();
-
-	void drawTest();
+	void drawAnimationAfterStartup();
 
 
 };

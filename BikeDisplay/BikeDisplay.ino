@@ -70,7 +70,7 @@ void setup() {
 	//adc read:
 	//analogRead(1);
 
-	Serial.begin(9600);
+	//Serial.begin(9600);
 
 	// setup mode button and interrupt
 	pinMode(buttonPin, INPUT);
@@ -84,12 +84,15 @@ void setup() {
 			; // Don't proceed, loop forever
 	}
 
-	display.drawSplashScreen();
+	display.drawStarupScreen();
 
 	delay(1000);
 
 	//led off
 	PORTB &= ~_BV(PORTB5);
+
+
+	display.drawAnimationAfterStartup();
 
 
 	OilTemperatureSensor oilTempSensor;
