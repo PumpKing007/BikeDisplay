@@ -120,11 +120,9 @@ void setup() {
 
 		if( currentButtonState==STATE_HIGH ) {
 			currentMenuItem = currentMenuItem->shortButtonPress();
-			Serial.print("shortPress");
 
 		} else if ( currentButtonState==STATE_LONG_HIGH ) {
 			currentMenuItem = currentMenuItem->longButtonPress();
-			Serial.print("longPress");
 		}
 
 
