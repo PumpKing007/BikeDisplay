@@ -54,13 +54,13 @@ int OilTemperatureSensor::readTemp()
 	float voltageR1 = (5.0 / 1023.0) * averageReading;
 	float resistance = 1000 * (voltageR1 / (5.0 - voltageR1));
 
-	float tr = 423.15;
-	float b = 3740.5;
-	float rr = 24.0;
+	float tr = 298.15;
+	float b = 3954.44;
+	float rr = 890.996865371729;
 	float rt = resistance;
 
 
-	float a = 0.11; //(tr/b);
+	float a = 0.075396263440588; //(tr/b);
 	float bb = rr / rt;
 	float logg = log(bb);
 
@@ -68,4 +68,14 @@ int OilTemperatureSensor::readTemp()
 	float tempC = temp - 273.15;
 
 	return (int)tempC;
+
+}
+
+float OilTemperatureSensor::readResistance()
+{
+	float voltageR1 = (5.0 / 1023.0) * averageReading;
+	float resistance = 1000 * (voltageR1 / (5.0 - voltageR1));
+
+
+	return resistance;
 }
