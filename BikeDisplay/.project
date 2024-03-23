@@ -57,6 +57,16 @@
 			<location>C:/Users/Tim/Documents/Arduino/libraries/Adafruit_SSD1306</location>
 		</link>
 		<link>
+			<name>libraries/EEPROM</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.8.6/libraries/EEPROM</locationURI>
+		</link>
+		<link>
+			<name>libraries/RTClib</name>
+			<type>2</type>
+			<location>C:/Users/Tim/Documents/Arduino/libraries/RTClib</location>
+		</link>
+		<link>
 			<name>libraries/SPI</name>
 			<type>2</type>
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.8.6/libraries/SPI</locationURI>
@@ -65,11 +75,6 @@
 			<name>libraries/Time</name>
 			<type>2</type>
 			<location>C:/Users/Tim/Documents/Arduino/libraries/Time</location>
-		</link>
-		<link>
-			<name>libraries/Wire</name>
-			<type>2</type>
-			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.8.6/libraries/Wire</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
