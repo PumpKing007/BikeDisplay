@@ -43,10 +43,9 @@ void Control::buttonReleased() {
 }
 
 ButtonState Control::getButtonState() {
+	endPressed = millis();
+	unsigned long holdTime = endPressed - startPressed;
 	if( pressed == true && released == false ) {
-		endPressed = millis();
-		unsigned long holdTime = endPressed - startPressed;
-
 		if( holdTime > 500 )
 		{
 			lastButtonState = STATE_LONG_HIGH;
@@ -55,9 +54,15 @@ ButtonState Control::getButtonState() {
 	}
 
 	if( pressed == true && released == true ) {
+		if( holdTime < 100 ) {
+			// the button push was just a fluke introduced trough noise and is ignored.
+			lastButtonState = STATE_LOW;
+		} else {
+			lastButtonState = STATE_HIGH;
+		}
 		pressed=false;
 		released=false;
-		lastButtonState = STATE_HIGH;
+
 	}
 
 	if( pressed == false ) {
