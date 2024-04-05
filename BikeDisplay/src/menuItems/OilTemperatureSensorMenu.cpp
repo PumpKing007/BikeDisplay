@@ -29,12 +29,20 @@ void OilTemperatureSensorMenu::draw() {
 	display->setTextSize(3);
 	display->setCursor(26, 8);
 
-	if( temp < 100 ) {
-		display->print(" ");
-	}
-	if( temp < 10 ) {
+	if( temp > 0 ) {
+		if( temp < 100 ) {
 			display->print(" ");
 		}
+		if( temp < 10 ) {
+			display->print(" ");
+		}
+	} else {
+		if( temp > -10 ) {
+			display->print(" ");
+		}
+	}
+
+
 	display->print(temp);
 	display->print((char) 247);
 	display->print("C   ");

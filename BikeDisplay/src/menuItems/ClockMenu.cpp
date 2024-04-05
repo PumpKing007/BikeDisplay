@@ -55,12 +55,12 @@ void ClockMenu::draw() {
 	}
 
 	display->clearDisplay();
-	display->setTextSize(3);
+	display->setTextSize(4);
 	display->setTextColor(SSD1306_WHITE);
 
 
-	display->setCursor(19, 12);
-	//display->setCursor(0, 12);
+	//display->setCursor(19, 12);
+	display->setCursor(4, 4);
 	blinkNumber(hours, currentSubMenu==SET_HOURS );
 	display->print(":");
 	blinkNumber(minutes, currentSubMenu==SET_MINUTES );
@@ -92,12 +92,12 @@ MenuItem* ClockMenu::shortButtonPress() {
 MenuItem* ClockMenu::longButtonPress() {
 	switch( currentSubMenu ) {
 		case SHOW:
-			currentSubMenu = SET_MINUTES;
-				break;
-		case SET_MINUTES:
 			currentSubMenu = SET_HOURS;
 			break;
 		case SET_HOURS:
+			currentSubMenu = SET_MINUTES;
+			break;
+		case SET_MINUTES:
 			clock->setClock(hours, minutes, 0);
 			currentSubMenu = SHOW;
 			break;
